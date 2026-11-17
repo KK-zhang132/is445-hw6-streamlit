@@ -2,6 +2,10 @@
 
 A Streamlit report exploring the course's Illinois building inventory.
 
+**Live app:** https://kk-zhang132-is445-hw6.streamlit.app/
+
+**Repository:** https://github.com/KK-zhang132/is445-hw6-streamlit
+
 ## Visualizations
 
 1. An agency lollipop ranking switches between reported floor area and record count, with an adjustable top-N limit.
