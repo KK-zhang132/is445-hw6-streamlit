@@ -36,7 +36,7 @@ selected = filter_inventory(df, counties, status)
 summary = agency_summary(selected)
 a, b, c = st.columns(3)
 a.metric("Inventory records", f"{len(selected):,}")
-b.metric("Reported floor area", f"{summary['area'].sum() / 1_000_000:,.2f}M sq ft")
+b.metric("Floor area (million sq ft)", f"{summary['area'].sum() / 1_000_000:,.2f}")
 c.metric("Agencies represented", f"{selected['agency'].nunique():,}")
 st.caption("Scope: " + (", ".join(counties) if counties else "All counties") + " · " + status + ". Each CSV row counts as one inventory record.")
 
@@ -80,7 +80,7 @@ else:
     is_share = mode == "Share within each use"
     color = alt.Color("share:Q", title="Share within use", scale=alt.Scale(scheme="tealblues", domain=[0, 1]), legend=alt.Legend(format=".0%")) if is_share else alt.Color("records:Q", title="Records", scale=alt.Scale(scheme="tealblues", zero=True))
     chart = alt.Chart(heat).mark_rect(stroke="#FAFAF7", strokeWidth=1).encode(
-        x=alt.X("decade:O", title="Construction decade (start year)", sort="ascending", axis=alt.Axis(labelAngle=-45)),
+        x=alt.X("decade:O", title="Construction decade (start year)", sort="ascending", axis=alt.Axis(labelAngle=-45, labelOverlap=True)),
         y=alt.Y("usage:N", title=None, sort=usages, axis=alt.Axis(labelLimit=200)),
         color=color,
         tooltip=[alt.Tooltip("usage:N", title="Building use"), alt.Tooltip("decade:O", title="Decade begins"), alt.Tooltip("records:Q", title="Records", format=","), alt.Tooltip("share:Q", title="Share of dated records within use", format=".1%")],
